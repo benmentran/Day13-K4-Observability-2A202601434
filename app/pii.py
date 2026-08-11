@@ -3,12 +3,24 @@ from __future__ import annotations
 import hashlib
 import re
 
+# Thứ tự có ý nghĩa: pattern dài/đặc hiệu chạy trước để không bị pattern ngắn
+# "ăn" mất một phần chuỗi rồi để lại phần đuôi nguyên văn.
+# Ví dụ: IP 010.123.456.789 phải khớp `ip_address` trước, nếu không `phone_vn`
+# sẽ nuốt "010.123.456" và bỏ sót ".789".
 PII_PATTERNS: dict[str, str] = {
     "email": r"[\w\.-]+@[\w\.-]+\.\w+",
-    "phone_vn": r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)",
-    "cccd": r"\b\d{12}\b",
+    "secret_token": r"\b(?:sk|pk)-(?:lf|ant)-[A-Za-z0-9_\-]{8,}",
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
-    # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
+    "cccd": r"\b\d{12}\b",
+    "ip_address": r"\b(?:\d{1,3}\.){3}\d{1,3}\b",
+    "phone_vn": r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)",
+    "cmnd": r"\b\d{9}\b",
+    "passport_vn": r"\b[A-Z]{1,2}\d{7}\b",
+    "address_vn": (
+        r"(?i)(?:số\s*\d+[\w/]*[,\s]+)?"
+        r"\b(?:đường|phố|ngõ|ngách|hẻm|quận|phường|thị trấn|huyện|tỉnh|tp\.?)\s+"
+        r"[^\n,;.]{2,40}"
+    ),
 }
 
 

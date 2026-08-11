@@ -1,0 +1,39 @@
+Kich ban: mot thanh viem them log moi va quen goi summarize_text()
+
+=== TRUOC (scrub_event ban starter) ===
+{
+  "event": "request_received",
+  "service": "api",
+  "level": "info",
+  "support_note": "goi lai 090 123 4567",
+  "payload": {
+    "message_preview": "Email toi [REDACTED_EMAIL]",
+    "profile": {
+      "email": "leak-nested@vinuni.edu.vn"
+    },
+    "attachments": [
+      "the 4111 1111 1111 1111",
+      "cccd 001202012345"
+    ]
+  }
+}
+--> validate_logs.py se bao PII: ['cccd', 'credit_card', 'email', 'phone_vn']
+
+=== SAU  (scrub_event da va - de quy toan bo record) ===
+{
+  "event": "request_received",
+  "service": "api",
+  "level": "info",
+  "support_note": "goi lai [REDACTED_PHONE_VN]",
+  "payload": {
+    "message_preview": "Email toi [REDACTED_EMAIL]",
+    "profile": {
+      "email": "[REDACTED_EMAIL]"
+    },
+    "attachments": [
+      "the [REDACTED_CREDIT_CARD]",
+      "cccd [REDACTED_CCCD]"
+    ]
+  }
+}
+--> validate_logs.py se bao PII: KHONG CO (0 leak)
