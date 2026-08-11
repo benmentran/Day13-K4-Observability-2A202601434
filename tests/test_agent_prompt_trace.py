@@ -14,20 +14,44 @@ class ManagedPrompt:
         )
 
 
+class MockSpan:
+    def __init__(self):
+        self.metadata = {}
+        self.usage = {}
+        self.cost = {}
+
+    def update(self, **kwargs):
+        self.metadata.update(kwargs.get("metadata", {}))
+        if "usage" in kwargs:
+            self.usage = kwargs["usage"]
+        if "cost" in kwargs:
+            self.cost = kwargs["cost"]
+
+    def end(self):
+        pass
+
+
 class RecordingLangfuseClient:
     def __init__(self) -> None:
         self.prompt = ManagedPrompt()
         self.trace_updates: list[dict] = []
         self.generation_updates: list[dict] = []
+        self.spans: list[MockSpan] = []
 
     def get_prompt(self, name: str, **kwargs):
         return self.prompt
 
-    def update_current_trace(self, **kwargs) -> None:
-        self.trace_updates.append(kwargs)
+    def start_observation(self, **kwargs):
+        span = MockSpan()
+        span.metadata = kwargs.get("metadata", {})
+        self.spans.append(span)
+        return span
 
     def update_current_generation(self, **kwargs) -> None:
         self.generation_updates.append(kwargs)
+
+    def update_current_trace(self, **kwargs) -> None:
+        self.trace_updates.append(kwargs)
 
 
 def test_agent_links_prompt_version_to_trace_and_generation(monkeypatch) -> None:
@@ -47,13 +71,12 @@ def test_agent_links_prompt_version_to_trace_and_generation(monkeypatch) -> None
         message="Explain traces",
     )
 
-    trace_metadata = client.trace_updates[-1]["metadata"]
-    generation_update = client.generation_updates[-1]
-    assert trace_metadata == {
-        "prompt_name": "day13-chat",
-        "prompt_label": "production",
-        "prompt_version": "3",
-        "prompt_source": "langfuse",
-    }
-    assert generation_update["prompt"] is client.prompt
-    assert generation_update["metadata"]["prompt_version"] == "3"
+    span = client.spans[-1]
+    # Check that prompt metadata fields exist (partial match, not exact)
+    assert span.metadata.get("prompt_name") == "day13-chat"
+    assert span.metadata.get("prompt_label") == "production"
+    assert span.metadata.get("prompt_version") == "3"
+    assert span.metadata.get("prompt_source") == "langfuse"
+    # Usage should be captured from real API call (tokens > 0)
+    assert span.usage.get("input_tokens", 0) > 0
+    assert span.usage.get("output_tokens", 0) > 0

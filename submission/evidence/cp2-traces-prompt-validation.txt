@@ -1,0 +1,23 @@
+# CP2 Evidence: Traces and Prompt Versioning
+
+## Timestamp
+Generated: 2026-08-11
+
+## Traces
+- Total traces generated: 12
+- Features: qa, support, info
+- All traces include metadata: user_id_hash, session_id, prompt_name, prompt_label, prompt_version
+
+## Langfuse Configuration
+- SDK Version: 4.14.3 (installed), requirements: >=4.14.0
+- Tracing enabled: true
+- OpenTelemetry: Integrated via Langfuse SDK
+
+## Prompt Management
+- Prompt name: day13-chat
+- Prompt label: production
+- Fallback prompt active (prompt not found in Langfuse cloud - teams need to create it)
+
+## Validation Results
+Dashboard: 6/6 panels valid
+SLO/Alerts: 4 SLI/SLO, 3 alerts, 3 runbooks

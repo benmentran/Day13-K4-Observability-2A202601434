@@ -4,31 +4,23 @@ import os
 from typing import Any
 
 try:
-    from langfuse import get_client, observe
+    from langfuse import Langfuse, observe
 
     LANGFUSE_SDK_AVAILABLE = True
 except ImportError:  # pragma: no cover - chỉ dùng khi chưa cài requirements
     LANGFUSE_SDK_AVAILABLE = False
-
-    def observe(*args: Any, **kwargs: Any):
-        def decorator(func):
-            return func
-
-        return decorator
-
-    class _DummyClient:
-        def update_current_trace(self, **kwargs: Any) -> None:
-            return None
-
-        def update_current_generation(self, **kwargs: Any) -> None:
-            return None
-
-    def get_client():
-        return _DummyClient()
+    Langfuse = None
+    observe = None
 
 
-def get_langfuse_client():
-    return get_client()
+_client = None
+
+
+def get_langfuse_client() -> Langfuse:
+    global _client
+    if _client is None:
+        _client = Langfuse()
+    return _client
 
 
 def tracing_enabled() -> bool:

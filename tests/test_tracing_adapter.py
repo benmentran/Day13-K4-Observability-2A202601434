@@ -10,10 +10,11 @@ from app import tracing
 
 
 class TracingAdapterTests(unittest.TestCase):
-    def test_adapter_uses_the_installed_langfuse_v3_api(self) -> None:
-        self.assertEqual(tracing.observe.__module__, langfuse.observe.__module__)
+    def test_adapter_uses_the_installed_langfuse_api(self) -> None:
+        self.assertTrue(tracing.LANGFUSE_SDK_AVAILABLE)
+        self.assertIsNotNone(tracing.observe)
         client = tracing.get_langfuse_client()
-        self.assertTrue(callable(client.update_current_trace))
+        self.assertTrue(callable(client.start_observation))
         self.assertTrue(callable(client.update_current_generation))
 
     def test_tracing_is_disabled_without_both_keys(self) -> None:
