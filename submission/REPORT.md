@@ -33,8 +33,8 @@
 
 - Kết quả `validate_dashboard.py`:
 - Evidence dashboard:
-- SLO đã chọn và lý do:
-- Alert rules và runbook:
+- SLO đã chọn và lý do: 4 SLI trên cửa sổ 28 ngày gồm P95 latency <= 3000 ms, error rate <= 2%, daily cost <= 2.5 USD và quality trung bình >= 0.75. Các ngưỡng khớp dashboard contract và bao phủ trải nghiệm, độ tin cậy, ngân sách và chất lượng AI; chi tiết tại `config/slo.yaml`.
+- Alert rules và runbook: 3 symptom-based alerts cho error rate, P95 latency và daily cost tại `config/alert_rules.yaml`; quy trình triage, mitigation, escalation và tiêu chí đóng sự cố tại `docs/alerts.md`. Kết quả kiểm tra: `submission/evidence/cp2-slo-alerts-validation.txt`.
 
 ## 6. Điều tra challenge
 

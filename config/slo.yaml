@@ -1,16 +1,36 @@
 service: day13-observability-lab
 window: 28d
+measurement_source: data/logs.jsonl
 slis:
   latency_p95_ms:
+    description: Độ trễ P95 của các request trả lời thành công
+    query: 'event == "response_sent" | percentile(latency_ms, 95)'
     objective: 3000
+    operator: lte
+    unit: ms
     target: 99.5
-    note: Replace with your group's target
+    target_unit: percent_of_measurement_windows
   error_rate_pct:
+    description: Tỷ lệ request thất bại trên tổng request nhận được
+    query: 'count(event == "request_failed") / count(event == "request_received") * 100'
     objective: 2
+    operator: lte
+    unit: percent
     target: 99.0
+    target_unit: percent_of_measurement_windows
   daily_cost_usd:
+    description: Tổng chi phí AI phát sinh trong một ngày UTC
+    query: 'event == "response_sent" | sum(cost_usd) by 1d'
     objective: 2.5
+    operator: lte
+    unit: usd_per_day
     target: 100.0
+    target_unit: percent_of_days
   quality_score_avg:
+    description: Điểm quality proxy trung bình của các câu trả lời
+    query: 'event == "response_sent" | mean(quality_score)'
     objective: 0.75
+    operator: gte
+    unit: score_0_to_1
     target: 95.0
+    target_unit: percent_of_measurement_windows

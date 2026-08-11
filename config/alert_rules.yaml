@@ -1,26 +1,30 @@
 alerts:
-  # CP1/CP2: Error rate alerts based on error_rate_pct metric
   - name: high_error_rate
     severity: critical
     condition: error_rate_pct > 2
+    duration: 5m
     type: symptom-based
-    owner: metrics-team
+    owner: sre-alerts
+    slo: error_rate_pct
     runbook: docs/alerts.md#high-error-rate
     metric: error_rate_pct
-    window: 5m
-  - name: elevated_error_rate
-    severity: warning
-    condition: error_rate_pct > 1
-    type: symptom-based
-    owner: metrics-team
-    runbook: docs/alerts.md#elevated-error-rate
-    metric: error_rate_pct
-    window: 5m
+
   - name: latency_p95_slo_breach
-    severity: critical
-    condition: latency_p95 > 3000
+    severity: warning
+    condition: latency_p95_ms > 3000
+    duration: 10m
     type: symptom-based
-    owner: latency-team
+    owner: sre-alerts
+    slo: latency_p95_ms
     runbook: docs/alerts.md#latency-breach
-    metric: latency_p95
-    window: 5m
+    metric: latency_p95_ms
+
+  - name: daily_cost_budget_breach
+    severity: warning
+    condition: daily_cost_usd > 2.5
+    duration: 5m
+    type: symptom-based
+    owner: sre-alerts
+    slo: daily_cost_usd
+    runbook: docs/alerts.md#daily-cost-budget-breach
+    metric: daily_cost_usd

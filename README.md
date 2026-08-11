@@ -43,6 +43,7 @@ Trong lab này, Langfuse dùng cho trace và prompt versioning; nguồn chuẩn 
 4. Mở `data/logs.jsonl` và ghi lại những trường còn thiếu.
 5. Chạy `python scripts/validate_logs.py` để lấy baseline.
 6. Chạy `python scripts/validate_dashboard.py` để hiểu contract của dashboard.
+7. Chạy `python scripts/validate_slo_alerts.py` để kiểm tra SLO, alert rules và runbook.
 
 Kết quả đúng ở bước 6 phải có dòng `HỢP LỆ: 6/6 panel`. Lệnh này chỉ kiểm tra contract; ảnh dashboard runtime vẫn phải nộp.
 

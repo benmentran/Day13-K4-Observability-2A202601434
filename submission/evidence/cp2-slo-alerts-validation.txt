@@ -1,0 +1,6 @@
+Command: python scripts/validate_slo_alerts.py
+Result: HỢP LỆ: 4 SLI/SLO, 3 alert rules và 3 runbook.
+
+Targeted tests:
+Command: python -m pytest -q tests/test_slo_alerts_validator.py tests/test_dashboard_validator.py
+Result: 4 passed
