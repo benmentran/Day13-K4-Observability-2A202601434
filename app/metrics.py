@@ -26,6 +26,19 @@ def record_request(latency_ms: int, cost_usd: float, tokens_in: int, tokens_out:
 
 
 
+def reset() -> None:
+    global TRAFFIC, TOTAL_REQUESTS, TOTAL_ERRORS
+    REQUEST_LATENCIES.clear()
+    REQUEST_COSTS.clear()
+    REQUEST_TOKENS_IN.clear()
+    REQUEST_TOKENS_OUT.clear()
+    ERRORS.clear()
+    QUALITY_SCORES.clear()
+    TRAFFIC = 0
+    TOTAL_REQUESTS = 0
+    TOTAL_ERRORS = 0
+
+
 def record_error(error_type: str) -> None:
     global ERRORS, TOTAL_ERRORS
     ERRORS[error_type] += 1
