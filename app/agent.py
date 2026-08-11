@@ -4,7 +4,8 @@ import time
 from dataclasses import dataclass
 
 from . import metrics
-from .mock_llm import FakeLLM
+from .cost_config import cache_get, cache_put, get_config
+from .mock_llm import FakeLLM, FakeResponse, FakeUsage
 from .mock_rag import retrieve
 from .pii import hash_user_id, summarize_text
 from .prompt_management import resolve_prompt
@@ -38,7 +39,22 @@ class LabAgent:
             message=message,
             enabled=tracing_enabled(),
         )
-        response = self.llm.generate(prompt.text)
+        cache_hit = False
+        response = None
+        if get_config()["cache_enabled"]:
+            cached = cache_get(feature, message)
+            if cached is not None:
+                response = FakeResponse(
+                    text=cached.text,
+                    usage=FakeUsage(0, 0),
+                    model=self.model,
+                )
+                cache_hit = True
+            else:
+                response = self.llm.generate(prompt.text)
+                cache_put(feature, message, response)
+        else:
+            response = self.llm.generate(prompt.text)
         quality_score = self._heuristic_quality(message, response.text, docs)
         latency_ms = int((time.perf_counter() - started) * 1000)
         cost_usd = self._estimate_cost(response.usage.input_tokens, response.usage.output_tokens)
@@ -64,6 +80,7 @@ class LabAgent:
                 "prompt_version": prompt.version,
                 "prompt_source": prompt.source,
                 "prompt_fetch_error": prompt.fetch_error,
+                "cache_hit": cache_hit,
             },
             usage_details={
                 "prompt_tokens": response.usage.input_tokens,

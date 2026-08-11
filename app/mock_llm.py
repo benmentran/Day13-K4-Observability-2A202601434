@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 from dotenv import load_dotenv
 
+from .cost_config import get_config
 from .incidents import STATE
 
 load_dotenv()
@@ -52,6 +53,7 @@ class FakeLLM:
         output_tokens = random.randint(80, 180)
         if STATE["cost_spike"]:
             output_tokens *= 4
+        output_tokens = self._cap_output_tokens(output_tokens)
 
         if self.client is not None:
             try:
@@ -59,6 +61,7 @@ class FakeLLM:
                     model=self.model,
                     messages=[{"role": "user", "content": prompt}],
                     temperature=0.7,
+                    max_tokens=self._max_tokens_param(),
                 )
                 text = response.choices[0].message.content
                 input_tokens = response.usage.prompt_tokens
@@ -77,3 +80,13 @@ class FakeLLM:
             )
 
         return FakeResponse(text=text, usage=FakeUsage(input_tokens, output_tokens), model=self.model)
+
+    def _cap_output_tokens(self, output_tokens: int) -> int:
+        cap = int(get_config()["max_output_tokens"])
+        if cap > 0:
+            return min(output_tokens, cap)
+        return output_tokens
+
+    def _max_tokens_param(self) -> int | None:
+        cap = int(get_config()["max_output_tokens"])
+        return cap if cap > 0 else None

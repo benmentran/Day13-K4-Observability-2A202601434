@@ -7,12 +7,14 @@ from fastapi.responses import JSONResponse
 from structlog.contextvars import bind_contextvars
 
 from .agent import LabAgent
+from .audit import audit
+from .cost_config import cache_clear, cache_size, get_config, update_config
 from .incidents import disable, enable, status
 from .logging_config import configure_logging, get_logger
 from .metrics import record_error, snapshot
 from .middleware import CorrelationIdMiddleware
 from .pii import hash_user_id, summarize_text
-from .schemas import ChatRequest, ChatResponse
+from .schemas import ChatRequest, ChatResponse, ConfigPatch
 from .tracing import tracing_enabled
 
 configure_logging()
@@ -30,6 +32,7 @@ async def startup() -> None:
         env=os.getenv("APP_ENV", "dev"),
         payload={"tracing_enabled": tracing_enabled()},
     )
+    audit("app_started", detail={"config": get_config(), "incidents": status()})
 
 
 @app.get("/health")
@@ -110,6 +113,7 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
 async def enable_incident(name: str) -> JSONResponse:
     try:
         enable(name)
+        audit("incident_enabled", target=name, before=False, after=True)
         log.warning("incident_enabled", service="control", payload={"name": name})
         return JSONResponse({"ok": True, "incidents": status()})
     except KeyError as exc:
@@ -120,7 +124,29 @@ async def enable_incident(name: str) -> JSONResponse:
 async def disable_incident(name: str) -> JSONResponse:
     try:
         disable(name)
+        audit("incident_disabled", target=name, before=True, after=False)
         log.warning("incident_disabled", service="control", payload={"name": name})
         return JSONResponse({"ok": True, "incidents": status()})
     except KeyError as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@app.get("/config")
+async def config_get() -> dict:
+    return {"config": get_config(), "incidents": status(), "cache_size": cache_size()}
+
+
+@app.put("/config")
+async def config_put(body: ConfigPatch) -> JSONResponse:
+    patch = {key: value for key, value in body.model_dump().items() if value is not None}
+    if not patch:
+        raise HTTPException(status_code=400, detail="Không có trường nào để cập nhật")
+    try:
+        config, changed = update_config(patch)
+    except (KeyError, ValueError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    for key, (before, after) in changed.items():
+        audit("config_changed", target=key, before=before, after=after)
+    if "cache_enabled" in changed and changed["cache_enabled"][1] is False:
+        cache_clear()
+    return JSONResponse({"ok": True, "config": config, "changed": {k: v[1] for k, v in changed.items()}})

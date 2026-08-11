@@ -41,3 +41,9 @@ class LogRecord(BaseModel):
     error_type: str | None = None
     tool_name: str | None = None
     payload: dict[str, Any] | None = None
+
+
+class ConfigPatch(BaseModel):
+    max_output_tokens: int | None = Field(default=None, ge=0)
+    cache_enabled: bool | None = None
+    cache_ttl_seconds: float | None = Field(default=None, gt=0)

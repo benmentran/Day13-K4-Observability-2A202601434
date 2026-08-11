@@ -1,0 +1,38 @@
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-143f00c6", "event": "response_sent", "detail": {"latency_ms": 14539, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-ef4501c1", "event": "response_sent", "detail": {"latency_ms": 11893, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-ef4501c1", "event": "response_sent", "detail": {"tokens_in": 36, "tokens_out": 299, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-e53fb43f", "event": "response_sent", "detail": {"latency_ms": 6961, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-0ae8dc14", "event": "response_sent", "detail": {"latency_ms": 7404, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-9a915901", "event": "response_sent", "detail": {"latency_ms": 8300, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-e76682ba", "event": "response_sent", "detail": {"latency_ms": 14288, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-ca94d285", "event": "response_sent", "detail": {"latency_ms": 10556, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-0072c4ed", "event": "response_sent", "detail": {"latency_ms": 10353, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-cf17fb5e", "event": "response_sent", "detail": {"latency_ms": 8127, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-09bc85af", "event": "response_sent", "detail": {"latency_ms": 15308, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-09bc85af", "event": "response_sent", "detail": {"tokens_in": 29, "tokens_out": 445, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-1668be88", "event": "response_sent", "detail": {"latency_ms": 10402, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-e88fa0c6", "event": "response_sent", "detail": {"latency_ms": 10090, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-d87e7de7", "event": "response_sent", "detail": {"latency_ms": 12430, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-99cecf40", "event": "response_sent", "detail": {"latency_ms": 7741, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-02e57d51", "event": "response_sent", "detail": {"latency_ms": 9612, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-f9af15d7", "event": "response_sent", "detail": {"latency_ms": 16813, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-1495d91f", "event": "response_sent", "detail": {"latency_ms": 9175, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-c4b0073f", "event": "response_sent", "detail": {"latency_ms": 10064, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-cd5b0e86", "event": "response_sent", "detail": {"latency_ms": 17423, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-66a3a1cc", "event": "response_sent", "detail": {"latency_ms": 10280, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-8599ced1", "event": "response_sent", "detail": {"latency_ms": 12487, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-31680b50", "event": "response_sent", "detail": {"latency_ms": 6900, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-faf27725", "event": "response_sent", "detail": {"latency_ms": 12144, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-6f07e40d", "event": "response_sent", "detail": {"latency_ms": 7255, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "latency_slo_breach", "correlation_id": "req-35723301", "event": "response_sent", "detail": {"latency_ms": 9347, "threshold_ms": 2000}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-6940a0ab", "event": "response_sent", "detail": {"tokens_in": 36, "tokens_out": 464, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-3c7b7647", "event": "response_sent", "detail": {"tokens_in": 32, "tokens_out": 400, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-d5f90400", "event": "response_sent", "detail": {"tokens_in": 39, "tokens_out": 468, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-6a75498c", "event": "response_sent", "detail": {"tokens_in": 35, "tokens_out": 600, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-77b47b75", "event": "response_sent", "detail": {"tokens_in": 33, "tokens_out": 400, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-f7ad3aea", "event": "response_sent", "detail": {"tokens_in": 35, "tokens_out": 392, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-3ad6d417", "event": "response_sent", "detail": {"tokens_in": 29, "tokens_out": 488, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-e0eba4e6", "event": "response_sent", "detail": {"tokens_in": 27, "tokens_out": 332, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-9f36a08f", "event": "response_sent", "detail": {"tokens_in": 36, "tokens_out": 460, "ratio_threshold": 8.0}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "cost_anomaly", "correlation_id": "req-608828d6", "event": "response_sent", "detail": {"cost_usd": 0.010824, "threshold_usd": 0.01}}
+{"ts": "2026-08-11T09:36:39Z", "anomaly_type": "token_ratio_anomaly", "correlation_id": "req-608828d6", "event": "response_sent", "detail": {"tokens_in": 28, "tokens_out": 716, "ratio_threshold": 8.0}}

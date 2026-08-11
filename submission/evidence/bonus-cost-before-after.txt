@@ -1,0 +1,16 @@
+COST OPTIMIZATION EVIDENCE - Day13 Observability (cost_spike active)
+======================================================================
+Config BEFORE (no fix): {'max_output_tokens': 0, 'cache_enabled': False}
+Config AFTER (fix)    : {'max_output_tokens': 150, 'cache_enabled': True}
+
+Before - 10 requests, cost_spike, no fix : total_cost_usd = 0.071800
+After  - 10 requests, cost_spike, cap150  : batch delta   = 0.023500
+After  - 10 requests, cache hit           : batch delta   = 0.000000
+Savings from token cap  : 67.3%
+
+Metrics snapshots (cumulative from app start):
+  BEFORE     : total_cost_usd=0.071800 tokens_out_total=4720 tokens_in_total=330
+  AFTER cap  : total_cost_usd=0.095300 tokens_out_total=6220 tokens_in_total=660
+  AFTER cache: total_cost_usd=0.095300 tokens_out_total=6220 tokens_in_total=660
+
+Elapsed: 5.8s
