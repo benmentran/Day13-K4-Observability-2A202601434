@@ -10,11 +10,14 @@ REQUEST_TOKENS_OUT: list[int] = []
 ERRORS: Counter[str] = Counter()
 TRAFFIC: int = 0
 QUALITY_SCORES: list[float] = []
+TOTAL_REQUESTS: int = 0  # CP1: Track total requests for error_rate calculation
+TOTAL_ERRORS: int = 0    # CP2: Track total errors for error_rate calculation
 
 
 def record_request(latency_ms: int, cost_usd: float, tokens_in: int, tokens_out: int, quality_score: float) -> None:
-    global TRAFFIC
+    global TRAFFIC, TOTAL_REQUESTS
     TRAFFIC += 1
+    TOTAL_REQUESTS += 1
     REQUEST_LATENCIES.append(latency_ms)
     REQUEST_COSTS.append(cost_usd)
     REQUEST_TOKENS_IN.append(tokens_in)
@@ -24,7 +27,9 @@ def record_request(latency_ms: int, cost_usd: float, tokens_in: int, tokens_out:
 
 
 def record_error(error_type: str) -> None:
+    global ERRORS, TOTAL_ERRORS
     ERRORS[error_type] += 1
+    TOTAL_ERRORS += 1
 
 
 
@@ -38,6 +43,7 @@ def percentile(values: list[int], p: int) -> float:
 
 
 def snapshot() -> dict:
+    error_rate_pct = (TOTAL_ERRORS / TOTAL_REQUESTS * 100) if TOTAL_REQUESTS > 0 else 0.0
     return {
         "traffic": TRAFFIC,
         "latency_p50": percentile(REQUEST_LATENCIES, 50),
@@ -47,6 +53,7 @@ def snapshot() -> dict:
         "total_cost_usd": round(sum(REQUEST_COSTS), 4),
         "tokens_in_total": sum(REQUEST_TOKENS_IN),
         "tokens_out_total": sum(REQUEST_TOKENS_OUT),
+        "error_rate_pct": round(error_rate_pct, 2),
         "error_breakdown": dict(ERRORS),
         "quality_avg": round(mean(QUALITY_SCORES), 4) if QUALITY_SCORES else 0.0,
     }

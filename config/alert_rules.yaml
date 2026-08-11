@@ -1,19 +1,26 @@
 alerts:
-  - name: TODO_alert_1
-    severity: TODO
-    condition: TODO
+  # CP1/CP2: Error rate alerts based on error_rate_pct metric
+  - name: high_error_rate
+    severity: critical
+    condition: error_rate_pct > 2
     type: symptom-based
-    owner: TODO
-    runbook: docs/alerts.md#alert-1
-  - name: TODO_alert_2
-    severity: TODO
-    condition: TODO
+    owner: metrics-team
+    runbook: docs/alerts.md#high-error-rate
+    metric: error_rate_pct
+    window: 5m
+  - name: elevated_error_rate
+    severity: warning
+    condition: error_rate_pct > 1
     type: symptom-based
-    owner: TODO
-    runbook: docs/alerts.md#alert-2
-  - name: TODO_alert_3
-    severity: TODO
-    condition: TODO
+    owner: metrics-team
+    runbook: docs/alerts.md#elevated-error-rate
+    metric: error_rate_pct
+    window: 5m
+  - name: latency_p95_slo_breach
+    severity: critical
+    condition: latency_p95 > 3000
     type: symptom-based
-    owner: TODO
-    runbook: docs/alerts.md#alert-3
+    owner: latency-team
+    runbook: docs/alerts.md#latency-breach
+    metric: latency_p95
+    window: 5m
