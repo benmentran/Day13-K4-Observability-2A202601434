@@ -1,0 +1,27 @@
+{
+  "scenario": "cost_spike enabled in all batches; sample_queries.jsonl (10 requests per batch)",
+  "config_before": {
+    "max_output_tokens": 0,
+    "cache_enabled": false
+  },
+  "config_after": {
+    "max_output_tokens": 150,
+    "cache_enabled": true
+  },
+  "batch_before_no_fix": {
+    "total_cost_usd_cumulative": 0.0718,
+    "batch_delta_usd": 0.0718,
+    "tokens_out_total": 4720
+  },
+  "batch_after_token_cap": {
+    "total_cost_usd_cumulative": 0.0953,
+    "batch_delta_usd": 0.0235,
+    "tokens_out_delta": 1500
+  },
+  "batch_after_cache": {
+    "total_cost_usd_cumulative": 0.0953,
+    "batch_delta_usd": 0.0,
+    "tokens_out_delta": 0
+  },
+  "savings_token_cap_pct": 67.3
+}

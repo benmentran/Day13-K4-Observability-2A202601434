@@ -1,0 +1,2 @@
+{"service": "day13-observability-lab", "env": "dev", "payload": {"tracing_enabled": true}, "event": "app_started", "level": "info", "ts": "2026-08-11T09:21:49.293769Z"}
+INFO:     127.0.0.1:62624 - "GET /health HTTP/1.1" 200 OK
