@@ -26,10 +26,15 @@ class FakeResponse:
 
 
 def get_openai_client():
+    # Không có key thì chạy hẳn ở chế độ mock: openai.OpenAI(api_key=None) ném
+    # OpenAIError ngay lúc khởi tạo, làm app crash khi import thay vì fallback.
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return None
     try:
         import openai
         return openai.OpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
+            api_key=api_key,
             base_url=os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1"),
         )
     except ImportError:
